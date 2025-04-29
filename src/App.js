@@ -6,7 +6,10 @@ import { languages } from "./languages"
 export default function AssemblyEndgame() {
     const [currentWord, setCurrentWord] = useState("react")
     const [guessedLetters, setGuessedLetters] = useState([])
-
+    
+    const wrongGuessCount = 
+        guessedLetters.filter(letter => !currentWord.includes(letter)).length
+    
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuessedLetter(letter) {
@@ -17,14 +20,16 @@ export default function AssemblyEndgame() {
         )
     }
 
-    const languageElements = languages.map(lang => {
+    const languageElements = languages.map((lang, index) => {
+        const isLanguageLost = index < wrongGuessCount
         const styles = {
             backgroundColor: lang.backgroundColor,
             color: lang.color
         }
+        const className = clsx("chip", isLanguageLost && "lost")
         return (
             <span
-                className="chip"
+                className={className}
                 style={styles}
                 key={lang.name}
             >
