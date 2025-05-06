@@ -5,9 +5,11 @@ import { getFarewellText, getRandomWord } from "./utils"
 import Confetti from "react-confetti"
 
 export default function AssemblyEndgame() {
+    // State values
     const [currentWord, setCurrentWord] = useState(() => getRandomWord())
     const [guessedLetters, setGuessedLetters] = useState([])
 
+    // Derived values
     const numGuessesLeft = languages.length - 1
     const wrongGuessCount =
         guessedLetters.filter(letter => !currentWord.includes(letter)).length
@@ -18,6 +20,7 @@ export default function AssemblyEndgame() {
     const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
     const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
 
+    // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuessedLetter(letter) {
@@ -152,7 +155,7 @@ export default function AssemblyEndgame() {
                 {letterElements}
             </section>
 
-            {}
+            {/* Combined visually-hidden aria-live region for status updates */}
             <section
                 className="sr-only"
                 aria-live="polite"
